@@ -1,16 +1,508 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skin & Co. | Medical Luxury Dermatology</title>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+    
+    <!-- Tailwind Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"DM Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        clinic: {
+                            bg: '#F5F3EE',
+                            sage: '#8A9E8C',
+                            charcoal: '#2C2C2A',
+                            olive: '#3D4A3E',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-clinic-bg text-clinic-charcoal font-sans font-light;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                @apply font-serif;
+            }
+        }
+        .nav-link {
+            @apply text-clinic-charcoal opacity-80 hover:opacity-100 transition-opacity;
+        }
+        .active-page {
+            @apply block;
+        }
+        .hidden-page {
+            @apply hidden;
+        }
+        
+        /* Smooth transitions for sections */
+        section-page {
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="selection:bg-clinic-sage selection:text-white">
 
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-clinic-bg/90 backdrop-blur-sm border-b border-clinic-charcoal/10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="cursor-pointer" onclick="navigateTo('home')">
+                <h1 class="text-2xl font-serif text-clinic-charcoal tracking-tight">Skin & Co.</h1>
+                <p class="text-[10px] uppercase tracking-[0.2em] font-sans opacity-60">Dermatology & Aesthetics</p>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-10 text-sm font-sans font-light tracking-wide">
+                <button onclick="navigateTo('home')" class="nav-link nav-btn-home">Home</button>
+                <button onclick="navigateTo('about')" class="nav-link nav-btn-about">About</button>
+                <button onclick="navigateTo('results')" class="nav-link nav-btn-results">Before & After</button>
+                <button onclick="navigateTo('booking')" class="bg-clinic-olive text-white px-8 py-2.5 rounded-full hover:bg-clinic-olive/90 transition-colors duration-300">
+                    Book Appointment
+                </button>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden" onclick="toggleMobileMenu()">
+                <i id="menu-icon" data-lucide="menu"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Nav -->
+        <nav id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-clinic-bg border-b border-clinic-charcoal/10 flex flex-col p-8 space-y-6 md:hidden shadow-xl">
+            <button onclick="navigateTo('home')" class="text-left text-lg font-serif">Home</button>
+            <button onclick="navigateTo('about')" class="text-left text-lg font-serif">About</button>
+            <button onclick="navigateTo('results')" class="text-left text-lg font-serif">Before & After</button>
+            <button onclick="navigateTo('booking')" class="bg-clinic-olive text-white px-8 py-3 rounded-full text-center">
+                Book Appointment
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        
+        <!-- Home Page -->
+        <section id="page-home" class="section-page active-page">
+            <div class="space-y-24 pb-24">
+                <!-- Hero -->
+                <section class="relative h-[85vh] flex items-center overflow-hidden">
+                    <!-- Replace with clinic hero image -->
+                    <div class="absolute inset-0 bg-clinic-sage/20">
+                        <div class="w-full h-full bg-[#E5E2D9] flex items-center justify-center text-clinic-charcoal/30 flex-col space-y-4">
+                            <div class="w-24 h-px bg-clinic-charcoal/20"></div>
+                            <p class="font-serif italic text-2xl">Clinic Interior / Hero Image</p>
+                            <div class="w-24 h-px bg-clinic-charcoal/20"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative max-w-7xl mx-auto px-6 w-full">
+                        <div class="max-w-2xl bg-clinic-bg/40 backdrop-blur-md p-10 md:p-16 fade-in">
+                            <h2 class="text-5xl md:text-7xl font-serif leading-[1.1] text-clinic-charcoal">
+                                Unlock the Secret to <br><span class="italic">Healthy, Confident</span> Skin.
+                            </h2>
+                            <p class="mt-8 text-lg font-sans font-light leading-relaxed opacity-80">
+                                Experience medical luxury with a personalized touch. Our clinic blends advanced dermatological science with an editorial aesthetic to redefine your skin health journey.
+                            </p>
+                            <button onclick="navigateTo('booking')" class="mt-10 flex items-center space-x-3 group outline-none">
+                                <span class="uppercase text-xs tracking-[0.3em] font-medium border-b border-clinic-charcoal pb-1 group-hover:pr-4 transition-all duration-300">Start Your Journey</span>
+                                <i data-lucide="chevron-right" size="16" class="group-hover:translate-x-1 transition-transform"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stats Row -->
+                <section class="max-w-7xl mx-auto px-6 py-12">
+                    <div class="flex flex-col md:flex-row justify-between items-center space-y-12 md:space-y-0 text-center">
+                        <div class="flex flex-col items-center">
+                            <span class="text-5xl font-serif mb-2">500+</span>
+                            <span class="text-[10px] uppercase tracking-[0.2em] opacity-60">Happy Patients</span>
+                        </div>
+                        <div class="w-px h-12 bg-clinic-charcoal/10 hidden md:block"></div>
+                        <div class="flex flex-col items-center">
+                            <span class="text-5xl font-serif mb-2">10+</span>
+                            <span class="text-[10px] uppercase tracking-[0.2em] opacity-60">Years Experience</span>
+                        </div>
+                        <div class="w-px h-12 bg-clinic-charcoal/10 hidden md:block"></div>
+                        <div class="flex flex-col items-center">
+                            <span class="text-5xl font-serif mb-2">2</span>
+                            <span class="text-[10px] uppercase tracking-[0.2em] opacity-60">Specialisations</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Intro -->
+                <section class="max-w-4xl mx-auto px-6 text-center space-y-8">
+                    <h3 class="text-3xl font-serif leading-tight">Founded on the belief that dermatological care should be as refined as it is curative.</h3>
+                    <p class="font-sans font-light text-lg leading-relaxed opacity-70">
+                        Skin & Co. is not a hospital; it is a sanctuary for your skin. We move beyond standard procedures to offer a holistic experience where clinical expertise meets an unspoken luxury. From persistent acne to advanced anti-aging, we treat the medical root of your concern within a space designed for calm.
+                    </p>
+                </section>
+
+                <!-- Find Us -->
+                <section class="max-w-7xl mx-auto px-6">
+                    <div class="grid md:grid-cols-2 gap-16 items-center">
+                        <div class="space-y-8">
+                            <h2 class="text-4xl font-serif">Find Us</h2>
+                            <div class="space-y-6">
+                                <div class="flex items-start space-x-4">
+                                    <i data-lucide="map-pin" class="text-clinic-sage mt-1" size="20"></i>
+                                    <div>
+                                        <p class="font-medium">Skin & Co. Clinic</p>
+                                        <p class="opacity-70 leading-relaxed">B-14, Sector 18, Noida,<br>Uttar Pradesh 201301</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <i data-lucide="phone" class="text-clinic-sage" size="20"></i>
+                                    <p class="opacity-70">+91 (555) 012-3456</p>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <i data-lucide="mail" class="text-clinic-sage" size="20"></i>
+                                    <p class="opacity-70">hello@skinandco.in</p>
+                                </div>
+                            </div>
+                            <div class="bg-clinic-sage/5 p-8 border-l-2 border-clinic-sage">
+                                <p class="font-serif italic text-xl">"The location was chosen for its accessibility and quietude, ensuring your visit starts with peace of mind."</p>
+                            </div>
+                        </div>
+                        <div class="h-[400px] bg-clinic-sage/10 relative overflow-hidden grayscale contrast-75 hover:grayscale-0 transition-all duration-700">
+                            <!-- Replace with actual Google Maps embed link -->
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14013.208151322!2d77.31745484887373!3d28.571249767355152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce44977465363%3A0x60f9ee925a666991!2sSector%2018%2C%20Noida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1714856000000!5m2!1sen!2sin" 
+                                class="w-full h-full border-0 absolute inset-0"
+                                allowfullscreen=""
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="page-about" class="section-page hidden-page">
+            <div class="max-w-7xl mx-auto px-6 py-24 space-y-32">
+                <div class="grid md:grid-cols-2 gap-20 items-center">
+                    <!-- Replace with doctor photo -->
+                    <div class="relative aspect-[3/4] bg-clinic-sage/10 overflow-hidden">
+                        <div class="w-full h-full bg-[#E0DDD1] flex items-center justify-center text-clinic-charcoal/30 flex-col">
+                            <div class="absolute top-8 left-8 border-l border-t border-clinic-charcoal/20 w-12 h-12"></div>
+                            <div class="absolute bottom-8 right-8 border-r border-b border-clinic-charcoal/20 w-12 h-12"></div>
+                            <p class="font-serif italic text-xl uppercase tracking-widest px-12 text-center">Dr. Aranya Sharma<br>Lead Dermatologist</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-10 fade-in">
+                        <h3 class="text-4xl md:text-5xl font-serif italic text-clinic-charcoal/90 leading-tight">
+                            "Every skin has a history. My job is to listen to it."
+                        </h3>
+                        
+                        <div class="space-y-6 font-sans font-light text-lg leading-relaxed opacity-80">
+                            <p>
+                                Dr. Aranya Sharma brings over a decade of clinical excellence in medical and aesthetic dermatology. After completing her MD from the All India Institute of Medical Sciences, she envisioned a clinic that married rigorous clinical results with an elevated patient experience.
+                            </p>
+                            <p>
+                                Her philosophy is "Subtle Correction, Significant Health." She believes that the best dermatology is invisible—leaving you looking like a rested, vibrant version of yourself, rather than a changed person.
+                            </p>
+                        </div>
+
+                        <div class="pt-8 border-t border-clinic-charcoal/10 flex flex-wrap gap-8">
+                            <div class="space-y-1">
+                                <p class="text-[10px] uppercase tracking-[0.2em] font-medium text-clinic-sage">Education</p>
+                                <p class="text-sm font-sans">MBBS, MD Dermatology (AIIMS)</p>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-[10px] uppercase tracking-[0.2em] font-medium text-clinic-sage">Experience</p>
+                                <p class="text-sm font-sans">10+ Years Professional Practice</p>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-[10px] uppercase tracking-[0.2em] font-medium text-clinic-sage">Memberships</p>
+                                <p class="text-sm font-sans">Indian Association of Dermatologists</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="bg-clinic-sage/5 py-24 px-12 text-center space-y-12 rounded-lg">
+                    <h2 class="text-3xl font-serif uppercase tracking-widest font-light">Our Medical Ethics</h2>
+                    <div class="grid md:grid-cols-3 gap-16 max-w-5xl mx-auto">
+                        <div class="space-y-4">
+                            <div class="text-3xl font-serif italic opacity-30">01.</div>
+                            <h4 class="text-sm uppercase tracking-[0.2em] font-medium">Transparency</h4>
+                            <p class="text-sm opacity-60 leading-relaxed">Honest consultation without pushing unnecessary aesthetic procedures.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="text-3xl font-serif italic opacity-30">02.</div>
+                            <h4 class="text-sm uppercase tracking-[0.2em] font-medium">Science First</h4>
+                            <p class="text-sm opacity-60 leading-relaxed">Every treatment is backed by peer-reviewed evidence and clinical safety.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="text-3xl font-serif italic opacity-30">03.</div>
+                            <h4 class="text-sm uppercase tracking-[0.2em] font-medium">Artistry</h4>
+                            <p class="text-sm opacity-60 leading-relaxed">An editorial eye for aesthetics that respects facial harmony and natural aging.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- Before & After Page -->
+        <section id="page-results" class="section-page hidden-page">
+            <div class="max-w-7xl mx-auto px-6 py-24 space-y-20">
+                <div class="text-center max-w-3xl mx-auto space-y-6">
+                    <h2 class="text-5xl font-serif">Real People. Real Results.</h2>
+                    <p class="font-sans font-light text-lg opacity-70 leading-relaxed">
+                        At Skin & Co., success is measured by the confidence our patients regain. All procedures are performed under strict clinical protocols by licensed dermatologists.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-12">
+                    <!-- Case 1 -->
+                    <div class="group cursor-default fade-in">
+                        <div class="flex space-x-2 aspect-[4/3]">
+                            <!-- Replace with actual images -->
+                            <div class="flex-1 bg-clinic-sage/10 relative overflow-hidden group-hover:bg-clinic-sage/20 transition-colors">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-[10px] uppercase tracking-[0.3em] font-medium opacity-40">Before</span>
+                                </div>
+                            </div>
+                            <div class="flex-1 bg-clinic-olive/5 relative overflow-hidden group-hover:bg-clinic-olive/10 transition-colors">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-[10px] uppercase tracking-[0.3em] font-medium opacity-40">After</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 space-y-2">
+                            <h4 class="text-xl font-serif">Acne Scarring Treatment</h4>
+                            <p class="text-xs uppercase tracking-widest opacity-50">Fractional CO2 Laser • 4 Sessions</p>
+                        </div>
+                    </div>
+                    <!-- Case 2 -->
+                    <div class="group cursor-default fade-in" style="animation-delay: 0.1s">
+                        <div class="flex space-x-2 aspect-[4/3]">
+                            <div class="flex-1 bg-clinic-sage/10 relative overflow-hidden group-hover:bg-clinic-sage/20 transition-colors">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-[10px] uppercase tracking-[0.3em] font-medium opacity-40">Before</span>
+                                </div>
+                            </div>
+                            <div class="flex-1 bg-clinic-olive/5 relative overflow-hidden group-hover:bg-clinic-olive/10 transition-colors">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-[10px] uppercase tracking-[0.3em] font-medium opacity-40">After</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 space-y-2">
+                            <h4 class="text-xl font-serif">Pigmentation Correction</h4>
+                            <p class="text-xs uppercase tracking-widest opacity-50">Chemical Peel • 3 Sessions</p>
+                        </div>
+                    </div>
+                    <!-- Case 3 -->
+                    <div class="group cursor-default fade-in" style="animation-delay: 0.2s">
+                        <div class="flex space-x-2 aspect-[4/3]">
+                            <div class="flex-1 bg-clinic-sage/10 relative overflow-hidden group-hover:bg-clinic-sage/20 transition-colors">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-[10px] uppercase tracking-[0.3em] font-medium opacity-40">Before</span>
+                                </div>
+                            </div>
+                            <div class="flex-1 bg-clinic-olive/5 relative overflow-hidden group-hover:bg-clinic-olive/10 transition-colors">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-[10px] uppercase tracking-[0.3em] font-medium opacity-40">After</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 space-y-2">
+                            <h4 class="text-xl font-serif">Facial Harmonization</h4>
+                            <p class="text-xs uppercase tracking-widest opacity-50">Dermal Fillers • 1 Session</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-20 border-t border-clinic-charcoal/5 text-center px-6">
+                    <p class="text-xs font-sans font-light tracking-wide opacity-50 max-w-xl mx-auto italic">
+                        Disclaimer: Results may vary based on individual skin type, metabolism, and lifestyle. All medical procedures are performed by a licensed dermatologist using medical-grade equipment.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Page -->
+        <section id="page-booking" class="section-page hidden-page">
+            <div class="max-w-7xl mx-auto px-6 py-24">
+                <div class="max-w-2xl mx-auto space-y-16">
+                    <div class="text-center space-y-6">
+                        <h2 class="text-5xl font-serif">Your Skin Deserves Attention.</h2>
+                        <p class="font-sans font-light text-lg opacity-70">Fill in your details below to request a clinical consultation.</p>
+                    </div>
+
+                    <form action="https://formspree.io/f/xkoyreld" method="POST" class="space-y-12">
+                        <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+                            <!-- Name -->
+                            <div class="relative group">
+                                <input type="text" name="name" id="name" placeholder=" " required class="w-full bg-transparent border-b border-clinic-charcoal/20 py-4 outline-none focus:border-clinic-sage transition-colors peer">
+                                <label htmlFor="name" class="absolute left-0 top-4 text-xs uppercase tracking-[0.2em] font-medium opacity-50 pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-clinic-sage peer-[:not(:placeholder-shown)]:-top-4">
+                                    Full Name
+                                </label>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="relative group">
+                                <input type="email" name="email" id="email" placeholder=" " required class="w-full bg-transparent border-b border-clinic-charcoal/20 py-4 outline-none focus:border-clinic-sage transition-colors peer">
+                                <label htmlFor="email" class="absolute left-0 top-4 text-xs uppercase tracking-[0.2em] font-medium opacity-50 pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-clinic-sage peer-[:not(:placeholder-shown)]:-top-4">
+                                    Email Address
+                                </label>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="relative group">
+                                <input type="tel" name="phone" id="phone" placeholder=" " required class="w-full bg-transparent border-b border-clinic-charcoal/20 py-4 outline-none focus:border-clinic-sage transition-colors peer">
+                                <label htmlFor="phone" class="absolute left-0 top-4 text-xs uppercase tracking-[0.2em] font-medium opacity-50 pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-clinic-sage peer-[:not(:placeholder-shown)]:-top-4">
+                                    Phone Number
+                                </label>
+                            </div>
+
+                            <!-- Concern -->
+                            <div class="relative group">
+                                <select name="concern" id="concern" required class="w-full bg-transparent border-b border-clinic-charcoal/20 py-4 outline-none focus:border-clinic-sage transition-colors appearance-none bg-none">
+                                    <option value="" disabled selected>Primary Concern</option>
+                                    <option value="Acne & Scars">Acne & Scars</option>
+                                    <option value="Eczema / Rashes">Eczema / Rashes</option>
+                                    <option value="Pigmentation">Pigmentation</option>
+                                    <option value="Botox & Fillers">Botox & Fillers</option>
+                                    <option value="Hair Loss">Hair Loss</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <label htmlFor="concern" class="absolute left-0 -top-4 text-xs uppercase tracking-[0.2em] font-medium opacity-50">
+                                    Concern
+                                </label>
+                            </div>
+
+                            <!-- Date -->
+                            <div class="relative group md:col-span-2">
+                                <input type="date" name="preferred_date" id="date" required class="w-full bg-transparent border-b border-clinic-charcoal/20 py-4 outline-none focus:border-clinic-sage transition-colors">
+                                <label htmlFor="date" class="absolute left-0 -top-4 text-xs uppercase tracking-[0.2em] font-medium opacity-50">
+                                    Preferred Date
+                                </label>
+                            </div>
+
+                            <!-- Message -->
+                            <div class="relative group md:col-span-2">
+                                <textarea name="message" id="message" placeholder=" " rows="1" class="w-full bg-transparent border-b border-clinic-charcoal/20 py-4 outline-none focus:border-clinic-sage transition-colors peer resize-none"></textarea>
+                                <label htmlFor="message" class="absolute left-0 top-4 text-xs uppercase tracking-[0.2em] font-medium opacity-50 pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-clinic-sage peer-[:not(:placeholder-shown)]:-top-4">
+                                    Message (Optional)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="pt-8 space-y-6">
+                            <button type="submit" class="w-full bg-clinic-olive text-white py-5 rounded-full text-sm uppercase tracking-[0.3em] font-medium hover:bg-clinic-olive/90 h-[60px] flex items-center justify-center transition-all duration-300">
+                                Request Appointment
+                            </button>
+                            <p class="text-center text-xs opacity-50 tracking-wide">
+                                Your data is secured. We'll confirm your slot via phone within 24 hours.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-clinic-bg border-t border-clinic-charcoal/5 py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+            <div class="text-center md:text-left">
+                <h2 class="text-xl font-serif text-clinic-charcoal">Skin & Co.</h2>
+                <p class="text-xs opacity-50 mt-1 uppercase tracking-widest">Est. 2014 • Noida, India</p>
+            </div>
+            <div class="flex space-x-8 text-[11px] uppercase tracking-[0.2em] opacity-60">
+                <a href="#" class="hover:opacity-100 transition-opacity">Privacy Policy</a>
+                <a href="#" class="hover:opacity-100 transition-opacity">Terms</a>
+                <a href="#" class="hover:opacity-100 transition-opacity">Contact</a>
+            </div>
+            <p class="text-xs opacity-40">© 2026 Skin & Co. Clinic. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Navigation & UI Logic -->
+    <script>
+        // Page Navigation
+        function navigateTo(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.section-page').forEach(page => {
+                page.classList.add('hidden-page');
+                page.classList.remove('active-page');
+            });
+
+            // Show selected page
+            const selectedPage = document.getElementById('page-' + pageId);
+            if (selectedPage) {
+                selectedPage.classList.remove('hidden-page');
+                selectedPage.classList.add('active-page');
+                
+                // Add fade-in animation
+                selectedPage.classList.remove('fade-in');
+                void selectedPage.offsetWidth; // trigger reflow
+                selectedPage.classList.add('fade-in');
+            }
+
+            // Update Nav Active State
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.add('opacity-80');
+                link.classList.remove('opacity-100', 'font-normal');
+            });
+            const activeLink = document.querySelector('.nav-btn-' + pageId);
+            if (activeLink) {
+                activeLink.classList.remove('opacity-80');
+                activeLink.classList.add('opacity-100', 'font-normal');
+            }
+
+            // Close mobile menu
+            document.getElementById('mobile-menu').classList.add('hidden');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
+
+</body>
+</html>
